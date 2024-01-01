@@ -1,5 +1,10 @@
 # Write your MySQL query statement below
-select name from Employee e1 
-where 5 <= (select count(*) 
-           from Employee e2
-           where e2.managerId = e1.id)
+select name
+from Employee   
+where id IN 
+    (
+    select managerId
+    From Employee
+        Group by managerId
+    having count(id) >= 5 
+    )
